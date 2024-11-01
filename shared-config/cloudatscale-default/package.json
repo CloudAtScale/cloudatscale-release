@@ -1,0 +1,5 @@
+{
+    "name": "cloudatscale-release-semantic-release-default",
+    "description": "CloudAtScale Release for Containers",
+    "main": "cloudatscale-default.js"
+}
