@@ -1,0 +1,5 @@
+{
+    "name": "cloudatscale-release-container",
+    "description": "CloudAtScale Release for Containers",
+    "main": "containers.js"
+}
