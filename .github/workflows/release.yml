@@ -1,18 +1,33 @@
 on:
   workflow_call:
-
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+    inputs:
+      repository: 
+        description: 'Repository to release'
+        required: true
+        type: string
+      registry:
+        description: 'Registry to push the image'
+        required: false
+        type: string
+        default: 'ghcr.io'
 
 name: Release
 jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - id: string
+        uses: vishalmamidi/lowercase-action@v1
+        with:
+          string: ${{inputs.repository}}
+      - name: echo lowercase
+        run: echo "${{ steps.string.outputs.lowercase }}"
+
   Release:
     runs-on: ubuntu-latest
+    needs: convert
     container: 
-        image: ghcr.io/${{ github.repository }}
+        image: ${{ inputs.registry }}/${{ needs.convert.steps.string.outputs.lowercase }}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -27,4 +42,4 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v4
         - name: run release
-          run: "semantic-release"
+          run: "semantic-release --dry-run"

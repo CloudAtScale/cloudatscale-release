@@ -99,4 +99,6 @@ jobs:
   release:
     uses: ./.github/workflows/release.yml
     needs: build
+    with:
+      repository: ${{ github.repository }}
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
