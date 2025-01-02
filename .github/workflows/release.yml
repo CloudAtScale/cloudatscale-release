@@ -23,13 +23,16 @@ jobs:
         with:
           string: ${{inputs.repository}}
       - name: echo lowercase
-        run: echo "${{ steps.string.outputs.lowercase }}" >> $GITHUB_OUTPUT
+        run: echo "repository=${{ steps.string.outputs.lowercase }}" >> "$GITHUB_OUTPUT"
 
   Release:
     runs-on: ubuntu-latest
     needs: convert
+    env:
+      REGISTRY: ${{ inputs.registry }}
+      IMAGE_NAME: ${{ needs.convert.outputs.repository }}
     container: 
-        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}
+        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}:${{ github.workflow_sha}}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -44,4 +47,4 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v4
         - name: run release
-          run: "semantic-release --dry-run"
+          run: "semantic-release"
