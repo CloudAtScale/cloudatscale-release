@@ -38,8 +38,8 @@ RUN addgroup -g ${USER_ID} cloudatscale-user && \
 USER cloudatscale-user 
 
 # Convert nodes module as executable
-ENV PATH ${BUILD_DIR}/node_modules/.bin/:$PATH
-ENV PATH ${BUILD_DIR}/venv/bin/:$PATH
+ENV PATH=${BUILD_DIR}/node_modules/.bin/:$PATH
+ENV PATH=${BUILD_DIR}/venv/bin/:$PATH
 
 
 # ENTRYPOINT [  ]
