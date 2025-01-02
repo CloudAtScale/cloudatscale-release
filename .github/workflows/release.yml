@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: convert
     container: 
-        image: ${{ inputs.registry }}/${{ needs.convert.steps.string.outputs.lowercase }}
+        image: ${{ inputs.registry }}/${{ needs.convert.outputs.string.lowercase }}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
