@@ -15,19 +15,21 @@ name: Release
 jobs:
   convert:
     runs-on: ubuntu-latest
+    outputs:
+      repository: ${{ steps.string.outputs.lowercase }}
     steps:
       - id: string
         uses: vishalmamidi/lowercase-action@v1
         with:
           string: ${{inputs.repository}}
       - name: echo lowercase
-        run: echo "${{ steps.string.outputs.lowercase }}"
+        run: echo "${{ steps.string.outputs.lowercase }}" >> $GITHUB_OUTPUT
 
   Release:
     runs-on: ubuntu-latest
     needs: convert
     container: 
-        image: ${{ inputs.registry }}/${{ needs.convert.outputs.string.lowercase }}
+        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
