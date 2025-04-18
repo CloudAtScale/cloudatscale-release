@@ -91,9 +91,16 @@ const assetsConfig = [
     }
 ];
 
-let semanticReleaseConfig = Object.assign(
-    changelogFormat,
-    commitAnalyzerConfig,
-    releaseBranchConfig,
-    assetsConfig
-);
+// Fix the way we create the config object
+const semanticReleaseConfig = {
+    plugins: [
+        commitAnalyzerConfig,
+        changelogFormat,
+        "@semantic-release/changelog",
+        "@semantic-release/npm",
+        assetsConfig
+    ],
+    branches: ["main"]
+};
+
+exports.semanticReleaseConfig = semanticReleaseConfig;
