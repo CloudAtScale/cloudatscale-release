@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       repository: ${{ steps.string.outputs.lowercase }}
+      sha_short: ${{ steps.vars.outputs.sha_short }}
     steps:
       - id: string
         uses: vishalmamidi/lowercase-action@v1
