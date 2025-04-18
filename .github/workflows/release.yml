@@ -32,7 +32,7 @@ jobs:
       REGISTRY: ${{ inputs.registry }}
       IMAGE_NAME: ${{ needs.convert.outputs.repository }}
     container: 
-        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}:${{ github.workflow_sha}}
+        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}:${{ github.sha }}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -46,5 +46,9 @@ jobs:
     steps:
         - name: Checkout repository
           uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
         - name: run release
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: "semantic-release"
