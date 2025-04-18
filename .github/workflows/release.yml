@@ -23,11 +23,10 @@ jobs:
         uses: vishalmamidi/lowercase-action@v1
         with:
           string: ${{inputs.repository}}
+      - id: vars
+        run: echo "sha_short=$(echo $GITHUB_SHA | cut -c1-7)" >> "$GITHUB_ENV"
       - name: echo lowercase
         run: echo "repository=${{ steps.string.outputs.lowercase }}" >> "$GITHUB_OUTPUT"
-      - name: Set outputs
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
   Release:
     runs-on: ubuntu-latest
