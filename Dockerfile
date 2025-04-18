@@ -14,8 +14,9 @@ RUN apk add --no-cache bash curl jq git openssh python3 py3-pip
 # Create build directory
 WORKDIR ${BUILD_DIR}
 
-# Copy package.json and requirements.txt
+# Copy all necessary files
 COPY package.json requirements.txt ${BUILD_DIR}/
+COPY shared-config/ ${BUILD_DIR}/shared-config/
 
 # Install node dependencies
 RUN npm install
@@ -37,11 +38,9 @@ RUN addgroup -g ${USER_ID} cloudatscale-user && \
 # Switch to non-root user
 USER cloudatscale-user 
 
-# Convert nodes module as executable
+# Add node modules and Python venv to PATH
 ENV PATH=${BUILD_DIR}/node_modules/.bin/:$PATH
 ENV PATH=${BUILD_DIR}/venv/bin/:$PATH
 
-
-# ENTRYPOINT [  ]
 # Set the entrypoint
 CMD ["bash"]
