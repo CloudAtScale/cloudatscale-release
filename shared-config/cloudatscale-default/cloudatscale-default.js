@@ -5,57 +5,58 @@ const changelogFormat = [
         "presetConfig": {
             "types": [
                 {
-                    "section": ":rocket: Features",
-                    "type": "feat"
+                    "section": "🚀 Features",
+                    "type": "feat",
+                    "hidden": false,
                 },
                 {
                     "hidden": false,
-                    "section": ":bug: Bug Fixes",
+                    "section": "🐛 Bug Fixes",
                     "type": "fix"
                 },
                 {
                     "hidden": false,
-                    "section": ":chart_with_upwards_trend: Performance Improvements",
+                    "section": "📈 Performance Improvements",
                     "type": "perf"
                 },
                 {
                     "hidden": false,
-                    "section": ":back: Reverts",
+                    "section": "🔙 Reverts",
                     "type": "revert"
                 },
                 {
                     "hidden": false,
-                    "section": ":books: Documentation",
+                    "section": "📚 Documentation",
                     "type": "docs"
                 },
                 {
                     "hidden": false,
-                    "section": ":ring: Styles",
+                    "section": "😎 Styles",
                     "type": "style"
                 },
                 {
                     "hidden": false,
-                    "section": ":package: Miscellaneous Chores",
+                    "section": "📦 Miscellaneous Chores",
                     "type": "chore"
                 },
                 {
                     "hidden": false,
-                    "section": ":hammer_pick: Code Refactoring",
+                    "section": "🛠️ Code Refactoring",
                     "type": "refactor"
                 },
                 {
                     "hidden": false,
-                    "section": ":fingers_crossed: Tests",
+                    "section": "🤞 Tests",
                     "type": "test"
                 },
                 {
                     "hidden": false,
-                    "section": ":man_construction_worker: Build System",
+                    "section": "🏗️ Build System",
                     "type": "build"
                 },
                 {
                     "hidden": false,
-                    "section": ":robot: Continuous Integration",
+                    "section": "🤖 Continuous Integration",
                     "type": "ci"
                 }
             ]
@@ -85,7 +86,8 @@ const assetsConfig = [
     "@semantic-release/git",
     {
         "assets": [
-            "CHANGELOG.md"
+            "CHANGELOG.md",
+            "${process.env.RELEASE_FILE_TO_ADD || ''}",
         ],
         "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
     }
@@ -97,7 +99,6 @@ const semanticReleaseConfig = {
         commitAnalyzerConfig,
         changelogFormat,
         "@semantic-release/changelog",
-        "@semantic-release/npm",
         assetsConfig
     ],
     branches: ["main"]
