@@ -10,7 +10,7 @@ const { semanticReleaseConfig } = require('./shared-config/cloudatscale-default/
 const config = {
   // Spread the default config
   ...semanticReleaseConfig,
-  
+
   // Add plugins specific to this project if needed
   plugins: [
     ...semanticReleaseConfig.plugins,
@@ -24,7 +24,7 @@ const config = {
       "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
     }]
   ],
-  
+
   // Define GitHub specifics
   githubOptions: {
     baseUri: "https://api.github.com"
