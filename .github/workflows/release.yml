@@ -24,6 +24,9 @@ jobs:
           string: ${{inputs.repository}}
       - name: echo lowercase
         run: echo "repository=${{ steps.string.outputs.lowercase }}" >> "$GITHUB_OUTPUT"
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
   Release:
     runs-on: ubuntu-latest
@@ -32,7 +35,7 @@ jobs:
       REGISTRY: ${{ inputs.registry }}
       IMAGE_NAME: ${{ needs.convert.outputs.repository }}
     container: 
-        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}:${{ github.sha }}
+        image: ${{ inputs.registry }}/${{ needs.convert.outputs.repository }}:sha-${{ needs.convert.outputs.sha_short }}
         credentials:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
