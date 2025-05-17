@@ -1,4 +1,4 @@
-FROM node:20.15.1-alpine3.20
+FROM node:20.19.2-alpine3.20
 
 ARG USER_ID=1001
 ARG BUILD_DIR=/build
